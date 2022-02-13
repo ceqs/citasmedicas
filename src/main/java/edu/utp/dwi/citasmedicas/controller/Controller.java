@@ -1,9 +1,11 @@
+package edu.utp.dwi.citasmedicas.controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package myservlet;
+
 
 import dao.Negocio;
 import java.io.IOException;
@@ -19,8 +21,8 @@ import modelo.Alumno;
  *
  * @author ceqs
  */
-@WebServlet(name = "Control", urlPatterns = {"/control"})
-public class Control extends HttpServlet {
+@WebServlet(name = "Control", urlPatterns = {"/index"})
+public class Controller extends HttpServlet {
     Negocio obj = new Negocio();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
