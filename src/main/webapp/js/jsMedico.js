@@ -36,7 +36,7 @@ function editar(_id) {
     $('#opc').val("2");
     limpiar();
     getData(_id);
-    $('#modalInfoMed').modal('show');
+    $('#modalInfoMed').appendTo("body").modal('show');
 }
 function borrar(_id) {
     delData(_id);

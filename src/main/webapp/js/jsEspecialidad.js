@@ -27,7 +27,7 @@ function editar(_id) {
     $('#opc_esp').val("2");
     limpiar();
     getData(_id);
-    $('#modalInfo_esp').modal('show');
+    $('#modalInfo_esp').appendTo("body").modal('show');
 }
 function borrar(_id) {
     delData(_id);
