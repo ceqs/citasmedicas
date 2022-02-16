@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $("#btnGuardar").click(function () {
         $.post("medico", $("#form_medico").serialize(), function (response) {
-            $('#modalInfoMed').modal('hide');
+            $('#modalInfoMed_moved').modal('hide');
             getDataListado();
         });
 
@@ -28,16 +28,32 @@ function limpiar() {
 }
 
 function nuevo() {
+    checkModal();
     $('#opc').val("1");
     limpiar();
-    $('#modalInfoMed').appendTo("body").modal('show');
+    $('#modalInfoMed_moved').modal('show');
 }
 function editar(_id) {
+    checkModal();
     $('#opc').val("2");
     limpiar();
     getData(_id);
-    $('#modalInfoMed').appendTo("body").modal('show');
+    $('#modalInfoMed_moved').modal('show');
 }
+
+function checkModal() {
+    //$('#modalInfo_esp').appendTo("body").modal('show');
+    if($('#modalInfoMed_moved').length) {
+        // destruyo el nuevo y me quedo con el antiguo.
+        $( "#modalInfoMed" ).remove();
+    }
+    else {
+        // lo muevo lo muevo al body y ke asigno el nuevo id.
+        $('#modalInfoMed').appendTo("body");
+        $("#modalInfoMed").attr("id", "modalInfoMed_moved");
+    }
+}
+
 function borrar(_id) {
     delData(_id);
 }

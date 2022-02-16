@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $("#btnGuardar_esp").click(function () {
         $.post("especialidad", $("#form_esp").serialize(), function (response) {
-            $('#modalInfo_esp').modal('hide');
+            $('#modalInfo_esp_moved').modal('hide');
             getDataListado();
         });
 
@@ -18,17 +18,33 @@ function limpiar() {
 }
 
 function nuevo() {
+    checkModal();
     $('#opc_esp').val("1");
     limpiar();
-    $('#modalInfo_esp').appendTo("body").modal('show');
+    $('#modalInfo_esp_moved').modal('show');
 }
 
 function editar(_id) {
+    checkModal();
     $('#opc_esp').val("2");
     limpiar();
     getData(_id);
-    $('#modalInfo_esp').appendTo("body").modal('show');
+    $('#modalInfo_esp_moved').modal('show');
 }
+
+function checkModal() {
+    //$('#modalInfo_esp').appendTo("body").modal('show');
+    if($('#modalInfo_esp_moved').length) {
+        // destruyo el nuevo y me quedo con el antiguo.
+        $( "#modalInfo_esp" ).remove();
+    }
+    else {
+        // lo muevo lo muevo al body y ke asigno el nuevo id.
+        $('#modalInfo_esp').appendTo("body");
+        $("#modalInfo_esp").attr("id", "modalInfo_esp_moved");
+    }
+}
+
 function borrar(_id) {
     delData(_id);
 }
