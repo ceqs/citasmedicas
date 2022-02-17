@@ -13,7 +13,7 @@ and open the template in the editor.
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background: #ffffff;
 }
 
 p {
@@ -85,7 +85,7 @@ a, a:hover, a:focus {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    border-bottom: 1px solid #000;
 }
 
 #sidebar ul p {
@@ -105,7 +105,7 @@ a, a:hover, a:focus {
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #000;
 }
 
 
@@ -113,7 +113,7 @@ a[data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
+.dropdown-toggle::before {
     display: block;
     position: absolute;
     top: 50%;
@@ -124,7 +124,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #000;
 }
 
 ul.CTAs {
@@ -145,7 +145,7 @@ a.download {
 }
 
 a.article, a.article:hover {
-    background: #6d7fcc !important;
+    background: #000 !important;
     color: #fff !important;
 }
 
@@ -201,6 +201,9 @@ a.article, a.article:hover {
     margin: 5px auto;
 }
 
+.header-datatable {
+    margin-bottom: 20px;
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES

@@ -31,10 +31,12 @@
                     </div>
                     <div class="col-sm-12">
                         <section class="panel">
-                            <header class="panel-heading" style="padding: 5px;">
-                                Listado de Médicos
-                                <a id="btnNuevo" class="btn btn-turq pull-right" data-toggle="modal" onclick="nuevo()">Nuevo Ingreso</a>
-                            </header>
+                            <nav class="navbar header-datatable">
+                                <div class="container-fluid">
+                                    <div><b>Listado de Médicos</b></div>
+                                    <a id="btnNuevo" class="btn btn-primary flex-row-reverse" data-toggle="modal" onclick="nuevo()">Nuevo Ingreso</a>
+                                </div>
+                            </nav>
                             <table id="tablaMaestra" class="table table-condensed dataTable">
                                 <thead>
                                     <tr>                                       

@@ -92,7 +92,7 @@ function getDataListado() {
     opc = "0";
     $.post("medico", {opc}, function (response) {
         var lista = $.parseJSON(response);
-
+        
         var resultado = "";
         tablaMaestra.destroy();
         $("#tblMaestraBody").html("");

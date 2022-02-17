@@ -41,19 +41,35 @@
                 <ul class="list-unstyled components">
                     <p>Bienvenid@: Carlos Quispe</p>
                     <li>
-                        <a class="menu-options" href="#">Reservar cita</a>
+                        <a class="menu-options" href="ReservaCita.jsp">Reservar cita</a>
                     </li>
                     <li>
-                        <a class="menu-options" href="#">Historial</a>
+                        <a class="menu-options" href="Historial.jsp">Historial</a>
                     </li>
                     <li>
-                        <a class="menu-options" href="#">Datos personales</a>
+                        <a class="menu-options" href="DatosPersonales.jsp">Datos personales</a>
                     </li>
                     <li>
-                        <a class="menu-options" href="pagEspecialidad.jsp">Especialidad</a>
+                        <a href="#adminSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
+                        <ul class="collapse list-unstyled" id="adminSubmenu" data-bs-target="#adminSubmenu">
+                            <li>
+                                <a class="menu-options" href="pagEspecialidad.jsp">Especialidad</a>
+                            </li>
+                            <li>
+                                <a class="menu-options" href="pagMedico.jsp">Medicos</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a class="menu-options" href="pagMedico.jsp">Medicos</a>
+                        <a href="#seguridadSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Seguridad</a>
+                        <ul class="collapse list-unstyled" id="seguridadSubmenu" data-bs-target="#seguridadSubmenu">
+                            <li>
+                                <a class="menu-options" href="Roles.jsp">Roles</a>
+                            </li>
+                            <li>
+                                <a class="menu-options" href="Usuario.jsp">Usuarios</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
