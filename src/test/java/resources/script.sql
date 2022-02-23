@@ -7,6 +7,8 @@
  * Author:  ceqs
  * Created: Feb 15, 2022
  */
+drop database if exists citasmedicas;
+create database citasmedicas;
 
 CREATE TABLE `especialidades` (
   `idEspecialidad` int NOT NULL AUTO_INCREMENT,
@@ -128,3 +130,31 @@ select idMedico,apellidos,nombres,sexo,fecNacimiento,dni,telefono,email,
 m.idEspecialidad, e.nomEspecialidad 
 from medicos m inner join especialidades e on m.idEspecialidad=e.idEspecialidad 
 order by apellidos, nombres;
+
+
+/*
+INGRESO DE DATOS
+*/
+
+delete from especialidades;
+DELIMITER ;
+ALTER TABLE especialidades AUTO_INCREMENT = 1;
+DELIMITER ;
+INSERT INTO especialidades (nomEspecialidad) values ('Cardiología'), ('Dermatología'), ('Gastroenterología'),
+('Ginecología');
+DELIMITER ;
+delete from medicos;
+DELIMITER ;
+ALTER TABLE medicos AUTO_INCREMENT = 1;
+DELIMITER ;
+INSERT INTO medicos (apellidos ,nombres ,sexo ,fecNacimiento ,dni ,telefono ,email, idEspecialidad) 
+values ('Juan','Torres','M','1980/01/01','12345678','999888777','juan@gmail.com',1),
+ ('Pedro','Calvo','M','1981/02/02','23456789','111222333','pedro@gmail.com',1),
+ ('Rodolfo','Torres','M','1983/03/03','45678912','444555666','rodolfo@gmail.com',2),
+ ('Moises','Bedoya','M','1984/04/04','67890123','777888999','moises@gmail.com',2),
+ ('Eduardo','Ponce','M','1985/05/05','78901234','888999000','eduardo@gmail.com',3),
+ ('Salvador','Herrera','M','1986/06/06','89012345','000111222','salvador@gmail.com',3),
+ ('Ricardo','Meza','M','1987/07/07','90123456','888999000','ricardo@gmail.com',4),
+ ('Melissa','Marina','F','1988/08/08','01234567','987654321','melissa@gmail.com',4);
+DELIMITER ;
+
