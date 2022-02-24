@@ -37,7 +37,6 @@ CREATE TABLE `roles` (
   PRIMARY KEY (`idRol`)
 );
 
-
 CREATE TABLE `usuarios` (
   `usuario` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
@@ -65,6 +64,30 @@ CREATE TABLE `pacientes` (
   KEY `fk_paciente_usuario_idx` (`usuario`),
   CONSTRAINT `fk_paciente_usuario` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`usuario`)
 );
+
+drop table if exists horarios;
+DELIMITER ;;
+CREATE TABLE `horarios` (
+  `idHorario` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `idMedico` int NOT NULL,
+  PRIMARY KEY (`idHorario`),
+  CONSTRAINT `fk_horario_medico` FOREIGN KEY (`idMedico`) REFERENCES `medicos` (`idMedico`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
+
+drop table if exists citas;
+DELIMITER ;;
+CREATE TABLE `citas` (
+  `idCita` int NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `idPaciente` int NOT NULL,
+  `idMedico` int NOT NULL,
+  `idHorario` int NOT NULL,
+  PRIMARY KEY ( `idCita`),
+  CONSTRAINT `fk_cita_paciente` FOREIGN KEY (`idPaciente`) REFERENCES `pacientes` (`idPaciente`),
+  CONSTRAINT `fk_cita_medico` FOREIGN KEY (`idMedico`) REFERENCES `medicos` (`idMedico`),
+  CONSTRAINT `fk_cita_horario` FOREIGN KEY (`idHorario`) REFERENCES `horarios` (`idHorario`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
 
 -- drop procedure usp_i_especialidad;
 create procedure usp_i_especialidad (
@@ -136,6 +159,21 @@ order by apellidos, nombres;
 INGRESO DE DATOS
 */
 
+delete from roles;
+DELIMITER ;
+ALTER TABLE roles AUTO_INCREMENT = 1;
+DELIMITER ;
+INSERT INTO roles (nomRol) values ('Paciente'), ('Empleado'), ('Admin');
+DELIMITER ;
+
+delete from usuarios;
+DELIMITER ;
+ALTER TABLE usuarios AUTO_INCREMENT = 1;
+DELIMITER ;
+INSERT INTO usuarios (usuario, password, idRol, enabled) values ('uno', '123', '1', '1'),
+('dos', '123', '2', '1'), ('tres', '123', '3', '1');
+DELIMITER ;
+
 delete from especialidades;
 DELIMITER ;
 ALTER TABLE especialidades AUTO_INCREMENT = 1;
@@ -143,6 +181,7 @@ DELIMITER ;
 INSERT INTO especialidades (nomEspecialidad) values ('Cardiología'), ('Dermatología'), ('Gastroenterología'),
 ('Ginecología');
 DELIMITER ;
+
 delete from medicos;
 DELIMITER ;
 ALTER TABLE medicos AUTO_INCREMENT = 1;
@@ -158,3 +197,67 @@ values ('Juan','Torres','M','1980/01/01','12345678','999888777','juan@gmail.com'
  ('Melissa','Marina','F','1988/08/08','01234567','987654321','melissa@gmail.com',4);
 DELIMITER ;
 
+delete from pacientes;
+DELIMITER ;
+ALTER TABLE pacientes AUTO_INCREMENT = 1;
+DELIMITER ;
+INSERT INTO pacientes (tipoDoc, numDoc, apePaterno, apeMaterno, nombres, telefono, celular, email,
+fecNacimiento, sexo, usuario) 
+values ('1','1011','Diaz','Jimenes','Juan','33034','989796','juan@gmail.com','1980/01/01','M','uno'),
+ ('1','1012','Perez','Zapata','Pedro','33035','123456','pedro@gmail.com','1981/01/01','M','dos'),
+ ('1','1013','Tello','Cruz','Esteban','35423','984563','esteban@gmail.com','1982/01/01','M','tres') ;
+DELIMITER ;
+
+delete from horarios;
+DELIMITER ;
+ALTER TABLE horarios AUTO_INCREMENT = 1;
+DELIMITER ;
+INSERT INTO horarios (nombre, idMedico) 
+values ('de 8:00am a 8:20am',1), ('de 8:20am a 8:40am',1), ('de 8:40am a 9:00am',1), 
+('de 9:00am a 9:20am',1), ('de 9:20am a 9:40am',1), ('de 9:40am a 10:00am',1),  
+('de 10:00am a 10:20am',1), ('de 10:20am a 10:40am',1), ('de 10:40am a 11:00am',1),
+('de 11:00am a 11:20am',1), ('de 11:20am a 11:40am',1), ('de 11:40am a 12:00pm',1),
+('de 12:00pm a 12:20pm',1), ('de 12:20pm a 12:40pm',1), ('de 12:40pm a 01:00pm',1),
+('de 03:00pm a 03:20pm',1), ('de 03:20pm a 03:40pm',1), ('de 03:40pm a 04:00pm',1),
+('de 04:00pm a 04:20pm',1), ('de 04:20pm a 04:40pm',1), ('de 04:40pm a 05:00pm',1),
+('de 05:00pm a 05:20pm',1), ('de 05:20pm a 05:40pm',1), ('de 05:40pm a 06:00pm',1),
+('de 8:00am a 8:20am',2), ('de 8:20am a 8:40am',2), ('de 8:40am a 9:00am',2), 
+('de 9:00am a 9:20am',2), ('de 9:20am a 9:40am',2), ('de 9:40am a 10:00am',2),  
+('de 10:00am a 10:20am',2), ('de 10:20am a 10:40am',2), ('de 10:40am a 11:00am',2),
+('de 11:00am a 11:20am',2), ('de 11:20am a 11:40am',2), ('de 11:40am a 12:00pm',2),
+('de 12:00pm a 12:20pm',2), ('de 12:20pm a 12:40pm',2), ('de 12:40pm a 01:00pm',2),
+('de 03:00pm a 03:20pm',2), ('de 03:20pm a 03:40pm',2), ('de 03:40pm a 04:00pm',2),
+('de 04:00pm a 04:20pm',2), ('de 04:20pm a 04:40pm',2), ('de 04:40pm a 05:00pm',2),
+('de 05:00pm a 05:20pm',2), ('de 05:20pm a 05:40pm',2), ('de 05:40pm a 06:00pm',2),
+('de 8:00am a 8:20am',3), ('de 8:20am a 8:40am',3), ('de 8:40am a 9:00am',3), 
+('de 9:00am a 9:20am',3), ('de 9:20am a 9:40am',3), ('de 9:40am a 10:00am',3),  
+('de 10:00am a 10:20am',3), ('de 10:20am a 10:40am',3), ('de 10:40am a 11:00am',3),
+('de 11:00am a 11:20am',3), ('de 11:20am a 11:40am',3), ('de 11:40am a 12:00pm',3),
+('de 12:00pm a 12:20pm',3), ('de 12:20pm a 12:40pm',3), ('de 12:40pm a 01:00pm',3),
+('de 8:00am a 8:20am',4), ('de 8:20am a 8:40am',4), ('de 8:40am a 9:00am',4), 
+('de 9:00am a 9:20am',4), ('de 9:20am a 9:40am',4), ('de 9:40am a 10:00am',4),  
+('de 10:00am a 10:20am',4), ('de 10:20am a 10:40am',4), ('de 10:40am a 11:00am',4),
+('de 11:00am a 11:20am',4), ('de 11:20am a 11:40am',4), ('de 11:40am a 12:00pm',4),
+('de 12:00pm a 12:20pm',4), ('de 12:20pm a 12:40pm',4), ('de 12:40pm a 01:00pm',4),
+('de 03:00pm a 03:20pm',5), ('de 03:20pm a 03:40pm',5), ('de 03:40pm a 04:00pm',5),
+('de 04:00pm a 04:20pm',5), ('de 04:20pm a 04:40pm',5), ('de 04:40pm a 05:00pm',5),
+('de 05:00pm a 05:20pm',5), ('de 05:20pm a 05:40pm',5), ('de 05:40pm a 06:00pm',5),
+('de 03:00pm a 03:20pm',6), ('de 03:20pm a 03:40pm',6), ('de 03:40pm a 04:00pm',6),
+('de 04:00pm a 04:20pm',6), ('de 04:20pm a 04:40pm',6), ('de 04:40pm a 05:00pm',6),
+('de 05:00pm a 05:20pm',6), ('de 05:20pm a 05:40pm',6), ('de 05:40pm a 06:00pm',6),
+('de 03:00pm a 03:20pm',7), ('de 03:20pm a 03:40pm',7), ('de 03:40pm a 04:00pm',7),
+('de 04:00pm a 04:20pm',7), ('de 04:20pm a 04:40pm',7), ('de 04:40pm a 05:00pm',7),
+('de 05:00pm a 05:20pm',7), ('de 05:20pm a 05:40pm',7), ('de 05:40pm a 06:00pm',7),
+('de 03:00pm a 03:20pm',8), ('de 03:20pm a 03:40pm',8), ('de 03:40pm a 04:00pm',8),
+('de 04:00pm a 04:20pm',8), ('de 04:20pm a 04:40pm',8), ('de 04:40pm a 05:00pm',8),
+('de 05:00pm a 05:20pm',8), ('de 05:20pm a 05:40pm',8), ('de 05:40pm a 06:00pm',8);
+DELIMITER ;
+
+delete from citas;
+DELIMITER ;
+ALTER TABLE citas AUTO_INCREMENT = 1;
+DELIMITER ;
+INSERT INTO citas (fecha, idPaciente, idMedico, idHorario) 
+values ('2022/02/24','1','1','1'), ('2022/02/24','2','1','2'), ('2022/02/24','3','1','3'),
+  ('2022/02/25','1','2','44'), ('2022/02/25','2','2','45'), ('2022/02/25','3','2','3');
+DELIMITER ;
