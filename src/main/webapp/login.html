@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_css_bootstrap.min.css" type="text/css">
+       
+        <link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+        <script src="http://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        
+        <style>
+            body{
+                background:#050505 ;
+                background: linear-gradient(to right, #292525 , #050505); 
+            }
+            .bg{
+                background-size: cover ;
+                background-image: url(imagenes/Logo_Clinica02.JPG);
+                background-position: center center ; 
+            }
+            .form-group::before{
+                    font-family: "Font Awesome\ 5 Free";
+                    position: absolute; 
+                    left: 34px;    
+                    font-size: 25px;
+                    color: black;
+                    padding-top: 4px;
+            }    
+                
+            .form-group#user-group::before{
+                    content: "\f007";
+            }            
+
+            .form-group#password-group::before{
+                    content: "\f023";
+            }  
+         </style>
+    </head>
+    <body>
+      <div class="container w-75 bg-primary mt-5 rounded shadow">
+        <div class ="row align-items-stretch">
+            <div class="col bg d-none d-lg-inline-block col-md-5 col-lg-5 col-xl-6 rounded-3">
+                
+            </div>
+            
+            <div class="col bg-dark p-5 rounded-end"> 
+                <div class="text-end">
+                    <img src="imagenes/Logo.jpg" width="48" alt="">
+                </div>
+                <h2 class="fw-bold text-center pt-5 mb-5">Bienvenido</h2>
+                
+                <form action="#">
+                    
+                    <div class="form-group mb-4" id="user-group">
+                        <label for="usuario" class="form-label">Usuario</label>
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" placeholder="Ingrese su usuario" name="usuario" required>
+                    </div>
+                    <div class="form-group mb-4" id="password-group">
+                        <label for="password" class="form-label">Password</label>
+                        <i class="fas fa-lock"></i>
+                        <input type="password" class="form-control" placeholder="Ingrese su password" name="password" required>                       
+                    </div>
+                    <div class="mb-4 form-check">
+                        <input type="checkbox" name="connected" class="form-check-input">
+                        <label for="connected" class="form-check-label"> Mantenerse conectado</<label>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </div>
+                    
+                    <div class="my-3">
+                       <span><a href="#">Recuperar Password</a></span>
+                    </div><br><br> <br>
+                    
+                    <div class="text-center text-muted mt-5 mb-0">
+                       <span>¿Todavia no tines una cuenta?<a href="#">Regístrate</a></span><br>
+                    </div>    
+                </form>
+                
+            
+            </div>
+        </div>
+      </div>        
+        <script src="bootstrap.bundle.min.js"></script>
+    </body>
+</html>
