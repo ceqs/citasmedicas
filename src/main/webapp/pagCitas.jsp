@@ -23,7 +23,7 @@
         <%
             EspecialidadDAO daoEspecialidad = new EspecialidadDAO();            
         %>
-        <h4>Reporte - Historial de Citas</h4>
+        <h4>Reserva de Citas</h4>
 
         <section id="main-content">
             <section class="wrapper">
@@ -63,9 +63,9 @@
                                 </div>
                             </div>
                             <div class="form-group row rowT">
-                                <div class="col-lg-4 row">
+                                <div class="col-lg-4 row" >
                                     <label class="col-sm-4 control-label">Fecha Fin</label>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-8" >
                                         <input type="date" min="1920-01-01" max="2050-12-31" class="form-control" data-live-search="true" name="txtfechaF" id="txtfechaF">                                   
                                     </div>
                                 </div>
@@ -76,7 +76,20 @@
                                             <option value="0" selected="">(TODOS)</option>
                                         </select>
                                     </div>
-                                </div>                               
+                                </div>
+                            </div>
+                            <div class="form-group row rowT">      
+                                <div class="col-lg-4 row">
+                                    &nbsp;
+                                </div>
+                                <div class="col-lg-6 row">
+                                    <label class="col-sm-3 control-label">Horarios disponibles</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select" name="cboHorario" id="cboHorario">
+                                            <option value="0" selected="">(TODOS)</option>
+                                        </select>
+                                    </div>
+                                </div>                                                               
                             </div>
                         </form>
                     </div>
