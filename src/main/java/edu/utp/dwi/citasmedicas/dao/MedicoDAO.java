@@ -84,6 +84,29 @@ public class MedicoDAO {
         }
         return lista;
     }
+    
+    public List<Medico> getListaMedEspec(int id) {
+        List<Medico> lista = new ArrayList();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Connection cn = MySQLConexion.getConexion();
+            String sql = "{call usp_s_medico_lst(?)}";
+            CallableStatement st = cn.prepareCall(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Medico d = new Medico();
+                d.setIdMedico(Integer.parseInt(rs.getString(1)));
+                d.setApellidos(rs.getString(2));
+                d.setNombres(rs.getString(3));
+                lista.add(d);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return lista;
+    }    
 
     public void adicionar(Medico e) {
         Connection cn = MySQLConexion.getConexion();

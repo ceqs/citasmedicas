@@ -41,7 +41,7 @@
                 <ul class="list-unstyled components">
                     <p>Bienvenid@: Carlos Quispe</p>
                     <li>
-                        <a class="menu-options" href="ReservaCita.jsp">Reservar cita</a>
+                        <a class="menu-options" href="pagCitas.jsp">Reservar cita</a>
                     </li>
                     <li>
                         <a class="menu-options" href="Historial.jsp">Historial</a>
