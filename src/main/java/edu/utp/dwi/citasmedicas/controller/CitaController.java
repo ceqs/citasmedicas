@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import edu.utp.dwi.citasmedicas.dao.HistorialDAO;
+import com.mysql.cj.xdevapi.Type;
+import edu.utp.dwi.citasmedicas.dao.CitaDAO;
+import java.util.Date;
 
 public class CitaController extends HttpServlet {
 
-    HistorialDAO daoHistorial = new HistorialDAO();
+    CitaDAO daoCita = new CitaDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +36,9 @@ public class CitaController extends HttpServlet {
             case 2:
                 listar(request, response);
                 break; 
+            case 3:
+                seleHorxMedxEsp(request, response);
+                break; 
         }  
     }
     
@@ -48,7 +53,7 @@ public class CitaController extends HttpServlet {
             int id_Med = Integer.parseInt(request.getParameter("cboMedico"));
             int id_Esp = Integer.parseInt(request.getParameter("cboEspecial"));
             
-            out.println(gson.toJson(daoHistorial.getLista(str_fecI, str_fecF, id_Med, id_Esp)));
+            out.println(gson.toJson(daoCita.getLista(str_fecI, str_fecF, id_Med, id_Esp)));
             out.flush();
             out.close();
         }
@@ -61,7 +66,21 @@ public class CitaController extends HttpServlet {
             int _id = Integer.parseInt(request.getParameter("_id"));
 
             Gson gson = new Gson();
-            out.println(gson.toJson(daoHistorial.getListMedxEsp(_id)));
+            out.println(gson.toJson(daoCita.getListMedxEsp(_id)));
+            out.flush();
+            out.close();
+        }
+    }
+
+    protected void seleHorxMedxEsp(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            int _id = Integer.parseInt(request.getParameter("_id"));
+            String _fecha = request.getParameter("_fechaI");
+
+            Gson gson = new Gson();
+            out.println(gson.toJson(daoCita.getListHorxMedxEsp(_id, _fecha)));
             out.flush();
             out.close();
         }

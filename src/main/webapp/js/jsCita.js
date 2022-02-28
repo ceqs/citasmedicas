@@ -6,6 +6,7 @@ $(document).ready(function () {
         let txtF = form_historial.txtfechaF.value;
         let cboE = form_historial.cboEspecial.value;
         let cboM = form_historial.cboMedico.value;
+        let cboH = form_historial.cboHorario.value;
 
         if (txtI == null || txtI == "") {
             alert("Debe especificar fecha Inicio");
@@ -15,18 +16,23 @@ $(document).ready(function () {
             alert("Debe especificar fecha Fin");
             return;
         }
-        //alert("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM);
+        
+        console.log("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM + '|' + cboH);
 
         $.post("CitaController", $("#form_historial").serialize(), function (response) {         
             getDataListado(response);
         });
-    });
-    
+    });    
     
     $("#cboEspecial").change(function () {        
         let _id = form_historial.cboEspecial.value;        
         validaCboEspecial(_id);
     });
+    
+    $("#cboMedico").change(function () {        
+        let _id = form_historial.cboMedico.value;        
+        validaCboMedico(_id, txtI);
+    });    
     
     validaCboEspecial("0"); 
     setTypeDataTableMaestra();
@@ -37,6 +43,13 @@ function validaCboEspecial(_id){
     let opc = "1";         
     $.post("CitaController", {opc, _id}, function (response) {
         getListaMedxEsp(response);
+    });    
+}
+
+function validaCboMedico(_id, _fechaI){
+    let opc = "3";         
+    $.post("CitaController", {opc, _id, _fechaI}, function (response) {
+        getListaHorxMed(response);
     });    
 }
 
@@ -55,9 +68,9 @@ function getListaHorxMed(response){
     var resultado = "";  
     resultado += "<option value=0 selected='selected'>(TODOS)</option>";
     for (var i = 0; i < lista.length; i++) {
-        resultado += "<option  value=" + lista[i].idMedico + ">" + lista[i].apellidos + "</option>";
+        resultado += "<option  value=" + lista[i].idHorario + ">" + lista[i].nombre + "</option>";
     }
-    $("#cboMedico").html(resultado);    
+    $("#cboHorario").html(resultado);    
 }
 
 
