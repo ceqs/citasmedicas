@@ -28,8 +28,9 @@ $(document).ready(function () {
         //alert("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM + '|' + cboH);        
         $.post("CitaController", $("#form_historial").serialize(), function (response) {                         
         });
-        alert(getAbsolutePath()+'Cita.jsp');
-        window.location.href(getAbsolutePath()+'Cita.jsp');
+        //alert(getAbsolutePath()+'Cita.jsp');
+        //location.href(getAbsolutePath()+'Cita.jsp');
+        window.location.reload(false);
     });
         
     $("#cboEspecial").change(function () {        
