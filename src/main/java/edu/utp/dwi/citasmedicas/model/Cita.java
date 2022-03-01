@@ -13,6 +13,8 @@ public class Cita {
     private String str_fecha;
     private int idHorario;
     private String nombre;
+    private int idPaciente;
+    private int idMedico;
 
     public Cita() {
     }
@@ -87,6 +89,22 @@ public class Cita {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public int getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(int idMedico) {
+        this.idMedico = idMedico;
     }
     
 }

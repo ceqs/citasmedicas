@@ -96,16 +96,16 @@
                             </div>                                        
                         </form>
                     </div>
-                    <div class="col-sm-12" style="margin-top: 40px;">
+                    <div class="col-sm-12" style="margin-top: 40px;">                        
                         <section class="panel">                           
                             <table id="tablaMaestra" class="table table-condensed dataTable">
                                 <thead>
                                     <tr> 
-                                        <th>Fecha</th>
-                                        <th>Horario</th>
-                                        <th>Medico</th>                                        
-                                        <th>Especialidad</th>
-                                        <th>Paciente</th>                                        
+                                        <th>&nbsp;</th>
+                                        <th>&nbsp;</th>
+                                        <th>&nbsp;</th>                                        
+                                        <th>&nbsp;</th>
+                                        <th>&nbsp;</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody id="tblMaestraBody">

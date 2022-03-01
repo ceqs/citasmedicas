@@ -8,8 +8,11 @@ package edu.utp.dwi.citasmedicas.controller;
 import com.google.gson.Gson;
 import edu.utp.dwi.citasmedicas.dao.CitaDAO;
 import edu.utp.dwi.citasmedicas.dao.HistorialDAO;
+import edu.utp.dwi.citasmedicas.model.Cita;
+import edu.utp.dwi.citasmedicas.model.Medico;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +49,9 @@ public class CitaController extends HttpServlet {
             case 3:
                 seleHorxMedxEsp(request, response);
                 break; 
+            case 4:
+                grabarCita(request, response);
+                break;                 
         }  
     }
 
@@ -90,6 +96,21 @@ public class CitaController extends HttpServlet {
             out.println(gson.toJson(daoCita.getListHorxMedxEsp(_id, _fecha)));
             out.flush();
             out.close();
+        }
+    }
+
+    protected void grabarCita(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            Cita d = new Cita();
+            java.sql.Date dateF = Date.valueOf(request.getParameter("txtfechaI"));
+
+            d.setIdMedico(Integer.parseInt(request.getParameter("cboMedico")));
+            d.setIdPaciente(Integer.parseInt(request.getParameter("8")));
+            d.setIdHorario(Integer.parseInt(request.getParameter("cboHorario")));
+            d.setFecha(dateF);
+            daoCita.adicionar(d);
         }
     }
     

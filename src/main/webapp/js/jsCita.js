@@ -30,12 +30,15 @@ $(document).ready(function () {
         }
         //alert("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM + '|' + cboH);
 
+        //$.post("CitaController", $("#form_historial").serialize(), function (response) {         
+            //getDataListado(response);
+        //});
+        
         $.post("CitaController", $("#form_historial").serialize(), function (response) {         
-            getDataListado(response);
+            grabarCita(cboM, txtI, cboH, 8);
         });
     });
-    
-    
+        
     $("#cboEspecial").change(function () {        
         let _id = form_historial.cboEspecial.value;        
         validaCboEspecial(_id);
@@ -50,7 +53,7 @@ $(document).ready(function () {
     
     validaCboEspecial("0"); 
     validaCboMedico("0","0"); 
-    setTypeDataTableMaestra();
+    //setTypeDataTableMaestra();
 });
 
 
@@ -65,6 +68,12 @@ function validaCboMedico(_id, _fechaI){
     let opc = "3";         
     $.post("CitaController", {opc, _id, _fechaI}, function (response) {
         getListaHorxMed(response);
+    });    
+}
+
+function grabarCita(){   
+    let opc = "4";         
+     $.post("CitaController", {opc}, function (response) {        
     });    
 }
 

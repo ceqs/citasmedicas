@@ -117,5 +117,21 @@ public class CitaDAO {
         return lista;
     }
     
-    
+     public void adicionar(Cita e) {
+        Connection cn = MySQLConexion.getConexion();
+        try {
+            String sql = "INSERT INTO citas (fecha, idPaciente, idMedico, idHorario) values (?,?,?,?)";
+            CallableStatement st = cn.prepareCall(sql);
+            st.setDate(1, e.getFecha());
+            st.setInt(2, e.getIdPaciente());            
+            st.setInt(3, e.getIdMedico());
+            st.setInt(4, e.getIdHorario());
+            st.executeUpdate();
+            cn.close();
+        } catch (Exception ex) {
+            //error a través de consola
+            ex.printStackTrace();
+        }
+    }
+
 }
