@@ -107,10 +107,11 @@ public class CitaController extends HttpServlet {
             java.sql.Date dateF = Date.valueOf(request.getParameter("txtfechaI"));
 
             d.setIdMedico(Integer.parseInt(request.getParameter("cboMedico")));
-            d.setIdPaciente(Integer.parseInt(request.getParameter("8")));
+            d.setIdPaciente(1);
             d.setIdHorario(Integer.parseInt(request.getParameter("cboHorario")));
-            d.setFecha(dateF);
+            d.setFecha(dateF);            
             daoCita.adicionar(d);
+            
         }
     }
     

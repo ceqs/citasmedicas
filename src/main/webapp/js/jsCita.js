@@ -1,19 +1,16 @@
 $(document).ready(function () {
-    
+    var URLactual = window.location.host;
+
     $("#btnBuscar").click(function () {
         //valida
         let txtI = form_historial.txtfechaI.value;
-        let txtF = form_historial.txtfechaF.value;
+        //let txtF = form_historial.txtfechaF.value;
         let cboE = form_historial.cboEspecial.value;
         let cboM = form_historial.cboMedico.value;
         let cboH = form_historial.cboHorario.value;
 
         if (txtI == null || txtI == "") {
             alert("Debe especificar fecha Inicio");
-            return;
-        }
-        if (txtF == null || txtF == "") {
-            alert("Debe especificar fecha Fin");
             return;
         }
         if (cboE == 0) {
@@ -28,15 +25,11 @@ $(document).ready(function () {
             alert("Debe seleccionar un Horario");
             return;
         }
-        //alert("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM + '|' + cboH);
-
-        //$.post("CitaController", $("#form_historial").serialize(), function (response) {         
-            //getDataListado(response);
-        //});
-        
-        $.post("CitaController", $("#form_historial").serialize(), function (response) {         
-            grabarCita(cboM, txtI, cboH, 8);
+        //alert("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM + '|' + cboH);        
+        $.post("CitaController", $("#form_historial").serialize(), function (response) {                         
         });
+        alert(getAbsolutePath()+'Cita.jsp');
+        window.location.href(getAbsolutePath()+'Cita.jsp');
     });
         
     $("#cboEspecial").change(function () {        
@@ -56,6 +49,12 @@ $(document).ready(function () {
     //setTypeDataTableMaestra();
 });
 
+function getAbsolutePath() {
+    var loc = window.location;
+    var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+    return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
+}
+
 
 function validaCboEspecial(_id){
     let opc = "1";         
@@ -71,11 +70,12 @@ function validaCboMedico(_id, _fechaI){
     });    
 }
 
-function grabarCita(){   
-    let opc = "4";         
-     $.post("CitaController", {opc}, function (response) {        
-    });    
-}
+//function grabarCita(){   
+//    let opc = "4";         
+//    $.post("CitaController", {opc}, function (response) {        
+//    });
+//    console.log("grabando datos");
+//}
 
 function getListaMedxEsp(response){
     var lista = $.parseJSON(response);     

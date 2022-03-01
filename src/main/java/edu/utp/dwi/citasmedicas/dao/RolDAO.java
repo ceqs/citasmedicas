@@ -66,7 +66,8 @@ public class RolDAO {
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, e.getNomRol());
             st.executeUpdate();
-            cn.close();
+            cn.close();            
+
         }
         catch (NumberFormatException | SQLException ex) {
             ex.printStackTrace();

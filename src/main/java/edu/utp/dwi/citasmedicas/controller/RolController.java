@@ -112,7 +112,6 @@ public class RolController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             int _id = Integer.parseInt(request.getParameter("_id"));
-
             Gson gson = new Gson();
             out.println(gson.toJson(daoRol.getDatos(_id)));
             out.flush();

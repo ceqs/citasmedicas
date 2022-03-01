@@ -58,15 +58,15 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-2 row">
-                                    <button type="button" class="btn btn-primary" id="btnBuscar">Buscar</button>
-                                    <input type="hidden" name="opc", id="opc" value="2" >
+                                    <button type="button" class="btn btn-primary" id="btnBuscar">Grabar</button>
+                                    <input type="hidden" name="opc", id="opc" value="4" >
                                 </div>
                             </div>
                             <div class="form-group row rowT">
                                 <div class="col-lg-4 row">
-                                    <label class="col-sm-4 control-label">Fecha Fin</label>
+                                    <!--label class="col-sm-4 control-label">Fecha Fin</label-->
                                     <div class="col-sm-8">
-                                        <input type="date" min="1920-01-01" max="2050-12-31" class="form-control" data-live-search="true" name="txtfechaF" id="txtfechaF">                                   
+                                        <!--input type="date" min="1920-01-01" max="2050-12-31" class="form-control" data-live-search="true" name="txtfechaF" id="txtfechaF"-->
                                     </div>
                                 </div>
                                 <div class="col-lg-6 row">
