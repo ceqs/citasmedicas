@@ -1,9 +1,10 @@
 package edu.utp.dwi.citasmedicas.dao;
 
+import edu.utp.dwi.citasmedicas.model.Cita;
 import edu.utp.dwi.citasmedicas.model.Historial;
-import edu.utp.dwi.citasmedicas.model.Horario;
 import edu.utp.dwi.citasmedicas.model.Medico;
 import edu.utp.dwi.citasmedicas.util.MySQLConexion;
+import static java.lang.System.console;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,8 +17,8 @@ import java.util.List;
 
 public class CitaDAO {
 
-    public List<Historial> getLista(String _fecI, String _fecF, int _idMed, int _idEsp) {
-        List<Historial> lista = new ArrayList();
+    public List<Cita> getLista(String _fecI, String _fecF, int _idMed, int _idEsp) {
+        List<Cita> lista = new ArrayList();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
@@ -30,7 +31,7 @@ public class CitaDAO {
             st.setInt(4, _idEsp);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Historial d = new Historial();
+                Cita d = new Cita();
                 d.setIdCita(Integer.parseInt(rs.getString(1)));
                 d.setFecha(Date.valueOf(rs.getString(2)));
                 d.setHorario(rs.getString(3));
@@ -78,34 +79,34 @@ public class CitaDAO {
             ex.printStackTrace();
         }
         return lista;
-    }
+    }        
 
-        public List<Horario> getListHorxMedxEsp(int _id, String _fecha) {
-        List<Horario> lista = new ArrayList();
+     public List<Cita> getListHorxMedxEsp(int _id, String _fecha) {
+        List<Cita> lista = new ArrayList();
         try {
             Connection cn = MySQLConexion.getConexion();
             String sql = "";
 
             if (_id > 0) {
                 sql = "select idHorario, nombre from horarios \n"
-                        + "where idHorario not in (select idHorario from citas where fecha=? and idMedico=?) \n"
-                        + "and idMedico=?";
+                        + " where idHorario not in (select idHorario from citas where fecha=? and idMedico=?) \n"
+                        + " and idMedico=?";
             } else {
                 sql = "select idHorario, nombre from horarios \n"
                         + "where idMedico=?";
-            }
+            }            
 
             PreparedStatement st = cn.prepareStatement(sql);
 
             if (_id > 0) {
-                st.setInt(1, _id);
-                st.setString(2, _fecha);
+                st.setString(1, _fecha);
+                st.setInt(2, _id);
                 st.setInt(3, _id);
             }
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Horario d = new Horario();
+                Cita d = new Cita();
                 d.setIdHorario(Integer.parseInt(rs.getString(1)));
                 d.setNombre(rs.getString(2));
                 lista.add(d);
@@ -115,5 +116,6 @@ public class CitaDAO {
         }
         return lista;
     }
-        
+    
+    
 }

@@ -1,5 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package edu.utp.dwi.citasmedicas.controller;
 
+import com.google.gson.Gson;
+import edu.utp.dwi.citasmedicas.dao.CitaDAO;
+import edu.utp.dwi.citasmedicas.dao.HistorialDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -7,13 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.mysql.cj.xdevapi.Type;
-import edu.utp.dwi.citasmedicas.dao.CitaDAO;
-import java.util.Date;
-
+/**
+ *
+ * @author Percy
+ */
 public class CitaController extends HttpServlet {
-
+    
     CitaDAO daoCita = new CitaDAO();
 
     /**
@@ -41,7 +48,7 @@ public class CitaController extends HttpServlet {
                 break; 
         }  
     }
-    
+
     protected void listar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -71,7 +78,7 @@ public class CitaController extends HttpServlet {
             out.close();
         }
     }
-
+    
     protected void seleHorxMedxEsp(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -87,7 +94,6 @@ public class CitaController extends HttpServlet {
     }
     
     
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -16,13 +16,25 @@ $(document).ready(function () {
             alert("Debe especificar fecha Fin");
             return;
         }
-        
-        console.log("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM + '|' + cboH);
+        if (cboE == 0) {
+            alert("Debe seleccionar una Especialidad");
+            return;
+        }
+        if (cboM == 0) {
+            alert("Debe seleccionar un Medico");
+            return;
+        }        
+        if (cboH == 0) {
+            alert("Debe seleccionar un Horario");
+            return;
+        }
+        //alert("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM + '|' + cboH);
 
         $.post("CitaController", $("#form_historial").serialize(), function (response) {         
             getDataListado(response);
         });
-    });    
+    });
+    
     
     $("#cboEspecial").change(function () {        
         let _id = form_historial.cboEspecial.value;        
@@ -31,10 +43,13 @@ $(document).ready(function () {
     
     $("#cboMedico").change(function () {        
         let _id = form_historial.cboMedico.value;        
-        validaCboMedico(_id, txtI);
-    });    
+        let _txtI = form_historial.txtfechaI.value;
+        //alert("OK: " + _id + '|' + _txtI);
+        validaCboMedico(_id, _txtI);
+    });  
     
     validaCboEspecial("0"); 
+    validaCboMedico("0","0"); 
     setTypeDataTableMaestra();
 });
 
@@ -72,7 +87,6 @@ function getListaHorxMed(response){
     }
     $("#cboHorario").html(resultado);    
 }
-
 
 function getDataListado(response) {
     //JSON.parse(response   

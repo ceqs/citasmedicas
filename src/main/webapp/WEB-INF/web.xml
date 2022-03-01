@@ -4,9 +4,25 @@
         <servlet-name>HistorialController</servlet-name>
         <servlet-class>edu.utp.dwi.citasmedicas.controller.HistorialController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>demo</servlet-name>
+        <servlet-class>edu.utp.dwi.citasmedicas.controller.demo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CitaController</servlet-name>
+        <servlet-class>edu.utp.dwi.citasmedicas.controller.CitaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HistorialController</servlet-name>
         <url-pattern>/HistorialController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>demo</servlet-name>
+        <url-pattern>/demo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CitaController</servlet-name>
+        <url-pattern>/CitaController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
