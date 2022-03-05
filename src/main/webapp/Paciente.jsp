@@ -36,8 +36,13 @@
                 <h1 class="h3 mb-3 fw-normal">Nuevo Paciente</h1>
                 <div>El numero de documento sera su usuario</div>
                 <div class="form-floating">
-                  <input name="tipodoc" type="text" class="form-control" id="floatingInput" placeholder="Tipo Documento">
-                  <label for="floatingInput">Tipo documento</label>
+                  <!--<input name="tipodoc" type="text" class="form-control" id="floatingInput" placeholder="Tipo Documento"> -->
+                  <label>Tipo Documento</label><br><br>
+                  <select class="custom-select" name="tipodoc" id="cboespecialidad" placeholder="Tipo Documento">                                        
+                       <option value="1">DNI</option>
+                       <option value="2">CARNET EXTRANJERIA</option>
+                    </select>
+                  <!--<label for="floatingInput">Tipo documento</label>-->
                 </div>
                 <br>
                 
@@ -79,7 +84,7 @@
                 
                 <div class="form-floating">
                   <input name="email" type="email" class="form-control" id="floatingInput" placeholder="email">
-                  <label for="floatingInput">Celular</label>
+                  <label for="floatingInput">Email</label>
                 </div>
                 <br>
                 
@@ -90,8 +95,13 @@
                 <br>
                 
                 <div class="form-floating">
-                  <input name="sexo" type="text" class="form-control" id="floatingInput" placeholder="Sexo">
-                  <label for="floatingInput">Sexo</label>
+                  <!--<input name="sexo" type="text" class="form-control" id="floatingInput" placeholder="Sexo">
+                  <label for="floatingInput">Sexo</label>-->
+                  <label>Sexo</label><br>
+                  <select class="custom-select" name="sexo" id="cbosexo" placeholder="Sexo">                                        
+                       <option value="M">MASCULINO</option>
+                       <option value="F">FEMENINO</option>
+                    </select>
                 </div>
                 <br>
                 

@@ -9,9 +9,12 @@ package edu.utp.dwi.citasmedicas.controller;
 
 import com.google.gson.Gson;
 import edu.utp.dwi.citasmedicas.dao.UsuarioDAO;
+import edu.utp.dwi.citasmedicas.dao.PacienteDAO;
 import edu.utp.dwi.citasmedicas.model.Usuario;
+import edu.utp.dwi.citasmedicas.model.Paciente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PacienteController extends HttpServlet {
 
     UsuarioDAO daoUsuario = new UsuarioDAO();
+    PacienteDAO daoPaciente = new PacienteDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,13 +69,37 @@ public class PacienteController extends HttpServlet {
     protected void adicionar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
-            Usuario d = new Usuario();
-            d.setUsuario(request.getParameter("txtusuario"));
-            d.setPassword(request.getParameter("txtpassword"));
-            d.setIdRol(Integer.parseInt(request.getParameter("cborol")));
-            d.setEnabled(Boolean.parseBoolean(request.getParameter("rdenabled")));
-            daoUsuario.adicionar(d);
+            String password = request.getParameter("password");
+            
+            Usuario u = new Usuario();
+            u.setUsuario(request.getParameter("numdoc"));
+            u.setPassword(password);
+            u.setIdRol(1);
+            u.setEnabled(true);
+                    
+            daoUsuario.adicionar(u);
+
+            
+            Paciente d = new Paciente();
+            
+            d.setTipoDoc(request.getParameter("tipodoc"));
+            d.setNumDoc(request.getParameter("numdoc"));
+            d.setApePaterno(request.getParameter("apepaterno"));
+            d.setApeMaterno(request.getParameter("apematerno"));
+            d.setNombres(request.getParameter("nombres"));
+            d.setTelefono(request.getParameter("telefono"));
+            d.setCelular(request.getParameter("celular"));
+            d.setEmail(request.getParameter("email"));
+            //d.setFecNacimiento(new Date(request.getParameter("fecnacimiento")));
+            d.setSexo(request.getParameter("sexo"));
+            d.setUsuario(request.getParameter("numdoc"));
+            
+            daoPaciente.adicionar(d);
+            
+            response.sendRedirect("Menu.jsp");
+
         }
     }
 
