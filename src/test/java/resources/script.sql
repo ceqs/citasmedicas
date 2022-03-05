@@ -10,6 +10,8 @@
 drop database if exists citasmedicas;
 create database citasmedicas;
 
+use citasmedicas;
+
 CREATE TABLE `especialidades` (
   `idEspecialidad` int NOT NULL AUTO_INCREMENT,
   `nomEspecialidad` varchar(45) NOT NULL,
@@ -29,7 +31,7 @@ CREATE TABLE `medicos` (
   PRIMARY KEY (`idMedico`,`idEspecialidad`),
   KEY `fk_Medicos_Especialidades1_idx` (`idEspecialidad`),
   CONSTRAINT `fk_Medicos_Especialidades1` FOREIGN KEY (`idEspecialidad`) REFERENCES `especialidades` (`idEspecialidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+);
 
 CREATE TABLE `roles` (
   `idRol` int NOT NULL AUTO_INCREMENT,
@@ -65,18 +67,14 @@ CREATE TABLE `pacientes` (
   CONSTRAINT `fk_paciente_usuario` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`usuario`)
 );
 
-drop table if exists horarios;
-DELIMITER ;;
 CREATE TABLE `horarios` (
   `idHorario` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `idMedico` int NOT NULL,
   PRIMARY KEY (`idHorario`),
   CONSTRAINT `fk_horario_medico` FOREIGN KEY (`idMedico`) REFERENCES `medicos` (`idMedico`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
+) ;
 
-drop table if exists citas;
-DELIMITER ;;
 CREATE TABLE `citas` (
   `idCita` int NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
@@ -87,7 +85,7 @@ CREATE TABLE `citas` (
   CONSTRAINT `fk_cita_paciente` FOREIGN KEY (`idPaciente`) REFERENCES `pacientes` (`idPaciente`),
   CONSTRAINT `fk_cita_medico` FOREIGN KEY (`idMedico`) REFERENCES `medicos` (`idMedico`),
   CONSTRAINT `fk_cita_horario` FOREIGN KEY (`idHorario`) REFERENCES `horarios` (`idHorario`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
+);
 
 -- drop procedure usp_i_especialidad;
 create procedure usp_i_especialidad (
@@ -195,7 +193,7 @@ DELIMITER ;
 INSERT INTO roles (nomRol) values ('Paciente'), ('Empleado'), ('Admin');
 DELIMITER ;
 
-delete from usuarios;
+-- delete from usuarios;
 DELIMITER ;
 ALTER TABLE usuarios AUTO_INCREMENT = 1;
 DELIMITER ;
@@ -203,7 +201,7 @@ INSERT INTO usuarios (usuario, password, idRol, enabled) values ('uno', '123', '
 ('dos', '123', '2', '1'), ('tres', '123', '3', '1');
 DELIMITER ;
 
-delete from especialidades;
+-- delete from especialidades;
 DELIMITER ;
 ALTER TABLE especialidades AUTO_INCREMENT = 1;
 DELIMITER ;
@@ -211,7 +209,7 @@ INSERT INTO especialidades (nomEspecialidad) values ('Cardiología'), ('Dermatol
 ('Ginecología');
 DELIMITER ;
 
-delete from medicos;
+-- delete from medicos;
 DELIMITER ;
 ALTER TABLE medicos AUTO_INCREMENT = 1;
 DELIMITER ;
@@ -226,7 +224,7 @@ values ('Juan','Torres','M','1980/01/01','12345678','999888777','juan@gmail.com'
  ('Melissa','Marina','F','1988/08/08','01234567','987654321','melissa@gmail.com',4);
 DELIMITER ;
 
-delete from pacientes;
+-- delete from pacientes;
 DELIMITER ;
 ALTER TABLE pacientes AUTO_INCREMENT = 1;
 DELIMITER ;
@@ -237,7 +235,7 @@ values ('1','1011','Diaz','Jimenes','Juan','33034','989796','juan@gmail.com','19
  ('1','1013','Tello','Cruz','Esteban','35423','984563','esteban@gmail.com','1982/01/01','M','tres') ;
 DELIMITER ;
 
-delete from horarios;
+-- delete from horarios;
 DELIMITER ;
 ALTER TABLE horarios AUTO_INCREMENT = 1;
 DELIMITER ;
@@ -282,7 +280,7 @@ values ('de 8:00am a 8:20am',1), ('de 8:20am a 8:40am',1), ('de 8:40am a 9:00am'
 ('de 05:00pm a 05:20pm',8), ('de 05:20pm a 05:40pm',8), ('de 05:40pm a 06:00pm',8);
 DELIMITER ;
 
-delete from citas;
+-- delete from citas;
 DELIMITER ;
 ALTER TABLE citas AUTO_INCREMENT = 1;
 DELIMITER ;

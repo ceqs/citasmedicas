@@ -9,9 +9,7 @@ package edu.utp.dwi.citasmedicas.controller;
 
 import com.google.gson.Gson;
 import edu.utp.dwi.citasmedicas.dao.UsuarioDAO;
-import edu.utp.dwi.citasmedicas.dao.PacienteDAO;
 import edu.utp.dwi.citasmedicas.model.Usuario;
-import edu.utp.dwi.citasmedicas.model.Paciente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,18 +17,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 /**
  *
  * @author ceqs
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "PacienteController", urlPatterns = {"/paciente"})
+public class PacienteController extends HttpServlet {
 
     UsuarioDAO daoUsuario = new UsuarioDAO();
-    PacienteDAO daoPaciente = new PacienteDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,45 +45,84 @@ public class LoginController extends HttpServlet {
             int op = Integer.parseInt(request.getParameter("opc"));           
             switch (op) {
                 case 1:
-                    login(request, response);
+                    adicionar(request, response);
                     break;
                 case 2:
-                    logout(request, response);
+                    editar(request, response);
                     break;
+                case 3:
+                    seleccionar(request, response);
+                    break;
+                case 4:
+                    borrar(request, response);
+                    break;
+                default:
+                    listar(request, response);
             }
         }
     }
 
-    protected void login(HttpServletRequest request, HttpServletResponse response)
+    protected void adicionar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Usuario d = daoUsuario.login(request.getParameter("username"), request.getParameter("password"));
-            
-            if(d == null) {
-                System.out.println("No se enecontro al usuario");
-                request.setAttribute("dato", "Clave o Usuario incorrecto");
-                request.getRequestDispatcher("/Login.jsp").forward(request, response);
-            }
-            else {
-                Paciente paciente = daoPaciente.getByUsuario(request.getParameter("username"));
-                d.setPaciente(paciente);
-                System.out.println("Se encontro al usuario");
-                HttpSession ses = request.getSession(true);
-                ses.setAttribute("usuario", d);
-                response.sendRedirect("Menu.jsp");
-                //request.getRequestDispatcher("/Menu.jsp").forward(request, response);
-            }
+            Usuario d = new Usuario();
+            d.setUsuario(request.getParameter("txtusuario"));
+            d.setPassword(request.getParameter("txtpassword"));
+            d.setIdRol(Integer.parseInt(request.getParameter("cborol")));
+            d.setEnabled(Boolean.parseBoolean(request.getParameter("rdenabled")));
+            daoUsuario.adicionar(d);
         }
     }
-    
-    protected void logout(HttpServletRequest request, HttpServletResponse response)
+
+    protected void editar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession ses = request.getSession();
-        ses.removeAttribute("usuario");
-        response.sendRedirect("Menu.jsp");
+        try (PrintWriter out = response.getWriter()) {
+            Usuario d = new Usuario();
+            d.setUsuario(request.getParameter("txtusuario"));
+            d.setPassword(request.getParameter("txtpassword"));
+            d.setIdRol(Integer.parseInt(request.getParameter("cborol")));
+            d.setEnabled(Boolean.parseBoolean(request.getParameter("rdenabled")));
+            daoUsuario.editar(d);
+        }
     }
+
+    protected void borrar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String _usuario = (String)request.getParameter("_usuario");
+            daoUsuario.borrar(_usuario);
+            out.println("");
+            out.flush();
+            out.close();
+        }
+    }
+
+    protected void listar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            Gson gson = new Gson();
+            out.println(gson.toJson(daoUsuario.getLista()));
+            out.flush();
+            out.close();
+        }
+    }
+
+    protected void seleccionar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String _usuario = (String)request.getParameter("_usuario");
+            Gson gson = new Gson();
+            out.println(gson.toJson(daoUsuario.getDatos(_usuario)));
+            out.flush();
+            out.close();
+        }
+    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

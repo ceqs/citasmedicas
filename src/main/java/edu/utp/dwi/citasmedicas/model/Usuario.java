@@ -15,6 +15,7 @@ public class Usuario {
     private int idRol;
     private String nomRol;
     private boolean enabled;
+    private Paciente paciente;
 
     public String getUsuario() {
         return usuario;
@@ -54,5 +55,13 @@ public class Usuario {
 
     public void setNomRol(String nomRol) {
         this.nomRol = nomRol;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 }

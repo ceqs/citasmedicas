@@ -53,7 +53,7 @@
                 
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesi&oacute;n</button>
                 <br><br>
-                <button class="w-100 btn btn-lg btn-secondary" type="submit">Registrarse</button>
+                <a href="Paciente.jsp">Registrarse</a>
                 
                 <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
             </form>

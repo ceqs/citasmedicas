@@ -55,7 +55,7 @@
                         <a class="menu-options" href="DatosPersonales.jsp">Datos personales</a>
                     </li>
                     <%
-                        if(usr.getNomRol().equals("ROL_ADMINISTRADOR")) {
+                        if(usr.getNomRol().toUpperCase().contains("ADMI")) {
                     %>
                     <li>
                         <a href="#adminSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
@@ -104,7 +104,7 @@
                         <div class="collapse navbar-collapse flex-row-reverse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#">Cerrar sesión</a>
+                                    <a class="nav-link" href="login?opc=2">Cerrar sesión</a>
                                 </li>
                             </ul>
                         </div>
