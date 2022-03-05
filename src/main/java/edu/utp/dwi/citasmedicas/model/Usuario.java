@@ -13,6 +13,7 @@ public class Usuario {
     private String usuario;
     private String password;
     private int idRol;
+    private String nomRol;
     private boolean enabled;
 
     public String getUsuario() {
@@ -45,5 +46,13 @@ public class Usuario {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getNomRol() {
+        return nomRol;
+    }
+
+    public void setNomRol(String nomRol) {
+        this.nomRol = nomRol;
     }
 }

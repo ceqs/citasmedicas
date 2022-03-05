@@ -19,6 +19,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDAO {
+    
+    public Usuario login(String _username, String _password) {
+        Usuario d = null;
+        try {
+            Connection cn = MySQLConexion.getConexion();
+            String sql = "select u.usuario, u.password, u.idRol, u.enabled, r.nomRol "
+                    + "from usuarios u join roles r on u.idRol = r.idRol "
+                    + "where u.usuario = ? and u.password = ?";
+            PreparedStatement st = cn.prepareStatement(sql);
+            st.setString(1, _username);
+            st.setString(2, _password);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                d = new Usuario();
+                d.setUsuario(rs.getString(1));
+                d.setPassword(rs.getString(2));
+                d.setIdRol(Integer.parseInt(rs.getString(3)));
+                d.setEnabled(rs.getBoolean(4));
+                d.setNomRol(rs.getString(5));
+            }
+        }
+        catch (NumberFormatException | SQLException ex) {
+            ex.printStackTrace();
+        }
+        return d;
+    }
 
     public Usuario getDatos(String _usuario) {
         Usuario d = new Usuario();

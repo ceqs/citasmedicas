@@ -4,6 +4,7 @@
     Author     : ceqs
 --%>
 
+<%@page import="edu.utp.dwi.citasmedicas.model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,7 +29,11 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
     </head>
-
+    
+    <%
+        HttpSession ses = request.getSession();
+        Usuario usr = (Usuario)ses.getAttribute("usuario");
+    %>
     <body>
 
         <div class="wrapper">
@@ -39,7 +44,7 @@
                 </div>
 
                 <ul class="list-unstyled components">
-                    <p>Bienvenid@: Carlos Quispe</p>
+                    <p>Bienvenid@: <%= usr.getUsuario() %></p>
                     <li>
                         <a class="menu-options" href="Cita.jsp">Reservar cita</a>
                     </li>
@@ -49,6 +54,9 @@
                     <li>
                         <a class="menu-options" href="DatosPersonales.jsp">Datos personales</a>
                     </li>
+                    <%
+                        if(usr.getNomRol().equals("ROL_ADMINISTRADOR")) {
+                    %>
                     <li>
                         <a href="#adminSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
                         <ul class="collapse list-unstyled" id="adminSubmenu" data-bs-target="#adminSubmenu">
@@ -60,6 +68,7 @@
                             </li>
                         </ul>
                     </li>
+                    
                     <li>
                         <a href="#seguridadSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Seguridad</a>
                         <ul class="collapse list-unstyled" id="seguridadSubmenu" data-bs-target="#seguridadSubmenu">
@@ -71,6 +80,9 @@
                             </li>
                         </ul>
                     </li>
+                    <%
+                        }
+                    %>
                 </ul>
             </nav>
 
