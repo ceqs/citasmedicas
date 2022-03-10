@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import edu.utp.dwi.citasmedicas.dao.HistorialDAO;
+import edu.utp.dwi.citasmedicas.model.Usuario;
+import javax.servlet.http.HttpSession;
 
 public class HistorialController extends HttpServlet {
 
@@ -47,8 +49,14 @@ public class HistorialController extends HttpServlet {
             String str_fecF = request.getParameter("txtfechaF");
             int id_Med = Integer.parseInt(request.getParameter("cboMedico"));
             int id_Esp = Integer.parseInt(request.getParameter("cboEspecial"));
+            HttpSession ses = request.getSession();
+            Usuario usr = (Usuario)ses.getAttribute("usuario");
             
-            out.println(gson.toJson(daoHistorial.getLista(str_fecI, str_fecF, id_Med, id_Esp)));
+            int idpaciente = 0;
+            if(usr.getPaciente() != null) {
+                idpaciente = usr.getPaciente().getIdPaciente();
+            }
+            out.println(gson.toJson(daoHistorial.getLista(idpaciente, str_fecI, str_fecF, id_Med, id_Esp)));
             out.flush();
             out.close();
         }

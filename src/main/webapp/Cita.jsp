@@ -23,7 +23,7 @@
         <%
             EspecialidadDAO daoEspecialidad = new EspecialidadDAO();            
         %>
-        <h4>Reporte - Historial de Citas</h4>
+        <h4>Reserva de Citas</h4>
 
         <section id="main-content">
             <section class="wrapper">
@@ -60,6 +60,8 @@
                                 <div class="col-lg-2 row">
                                     <button type="button" class="btn btn-primary" id="btnBuscar">Grabar</button>
                                     <input type="hidden" name="opc", id="opc" value="4" >
+                                    <input type="hidden" name="des_horario", id="opc" value="" >
+                                    <input type="hidden" name="des_medico", id="opc" value="" >
                                 </div>
                             </div>
                             <div class="form-group row rowT">

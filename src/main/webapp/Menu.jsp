@@ -45,15 +45,22 @@
 
                 <ul class="list-unstyled components">
                     <p>Bienvenid@: <%= usr.getUsuario() %></p>
+                    <%
+                        if(!usr.getNomRol().toUpperCase().contains("ADMI")) {
+                    %>
                     <li>
                         <a class="menu-options" href="Cita.jsp">Reservar cita</a>
                     </li>
                     <li>
-                        <a class="menu-options" href="Historial.jsp">Historial</a>
-                    </li>
-                    <li>
                         <a class="menu-options" href="DatosPersonales.jsp">Datos personales</a>
                     </li>
+                    <%
+                        }
+                    %>
+                    <li>
+                        <a class="menu-options" href="Historial.jsp">Historial</a>
+                    </li>
+                    
                     <%
                         if(usr.getNomRol().toUpperCase().contains("ADMI")) {
                     %>
@@ -68,7 +75,6 @@
                             </li>
                         </ul>
                     </li>
-                    
                     <li>
                         <a href="#seguridadSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Seguridad</a>
                         <ul class="collapse list-unstyled" id="seguridadSubmenu" data-bs-target="#seguridadSubmenu">
@@ -113,7 +119,9 @@
                 <!--
                 <iframe id="iframeApplication" name="iframeApplication" class="embed-responsive-item" width="100%" height="100%"></iframe>
                 -->
-                <div id="content-options" class="embed-responsive-item"></div>
+                <div id="content-options" class="embed-responsive-item">
+                    <img src="imagenes/Logo_Clinica02.JPG">
+                </div>
             </div>
         </div>
 

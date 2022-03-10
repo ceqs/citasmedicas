@@ -7,9 +7,8 @@ package edu.utp.dwi.citasmedicas.controller;
 
 import com.google.gson.Gson;
 import edu.utp.dwi.citasmedicas.dao.CitaDAO;
-import edu.utp.dwi.citasmedicas.dao.HistorialDAO;
 import edu.utp.dwi.citasmedicas.model.Cita;
-import edu.utp.dwi.citasmedicas.model.Medico;
+import edu.utp.dwi.citasmedicas.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -17,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -107,11 +107,17 @@ public class CitaController extends HttpServlet {
             java.sql.Date dateF = Date.valueOf(request.getParameter("txtfechaI"));
 
             d.setIdMedico(Integer.parseInt(request.getParameter("cboMedico")));
-            d.setIdPaciente(1);
+            HttpSession ses = request.getSession();
+            Usuario usr = (Usuario)ses.getAttribute("usuario");
+            d.setIdPaciente(usr.getPaciente().getIdPaciente());
             d.setIdHorario(Integer.parseInt(request.getParameter("cboHorario")));
             d.setFecha(dateF);            
             daoCita.adicionar(d);
             
+            request.setAttribute("fecha", request.getParameter("txtfechaI"));
+            request.setAttribute("horario", request.getParameter("des_horario"));
+            request.setAttribute("medico", request.getParameter("des_medico"));
+            request.getRequestDispatcher("/Registrado.jsp").forward(request, response);
         }
     }
     

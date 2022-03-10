@@ -1,10 +1,8 @@
 package edu.utp.dwi.citasmedicas.dao;
 
 import edu.utp.dwi.citasmedicas.model.Cita;
-import edu.utp.dwi.citasmedicas.model.Historial;
 import edu.utp.dwi.citasmedicas.model.Medico;
 import edu.utp.dwi.citasmedicas.util.MySQLConexion;
-import static java.lang.System.console;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;

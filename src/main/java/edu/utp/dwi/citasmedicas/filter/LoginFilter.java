@@ -6,7 +6,6 @@
 package edu.utp.dwi.citasmedicas.filter;
         
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;

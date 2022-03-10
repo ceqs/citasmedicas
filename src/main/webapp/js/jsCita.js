@@ -8,6 +8,8 @@ $(document).ready(function () {
         let cboE = form_historial.cboEspecial.value;
         let cboM = form_historial.cboMedico.value;
         let cboH = form_historial.cboHorario.value;
+        
+        form_historial.des_
 
         if (txtI == null || txtI == "") {
             alert("Debe especificar fecha Inicio");
@@ -20,17 +22,28 @@ $(document).ready(function () {
         if (cboM == 0) {
             alert("Debe seleccionar un Medico");
             return;
-        }        
+        }
         if (cboH == 0) {
             alert("Debe seleccionar un Horario");
             return;
         }
+        
+        var combo = document.getElementById("cboMedico");
+        var selected = combo.options[combo.selectedIndex].text;
+        form_historial.des_medico.value = selected;
+        
+        var combo = document.getElementById("cboHorario");
+        var selected = combo.options[combo.selectedIndex].text;
+        form_historial.des_horario.value = selected;
+        
         //alert("OK: " + txtI + '|' + txtF + '|' + cboE + '|' + cboM + '|' + cboH);        
-        $.post("CitaController", $("#form_historial").serialize(), function (response) {                         
+        $.post("CitaController", $("#form_historial").serialize(), function (data) {
+            data = data.replace('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', '')
+            $('#content-options').html( data );
         });
         //alert(getAbsolutePath()+'Cita.jsp');
         //location.href(getAbsolutePath()+'Cita.jsp');
-        window.location.reload(false);
+        //window.location.reload(false);
     });
         
     $("#cboEspecial").change(function () {        

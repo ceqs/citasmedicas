@@ -154,13 +154,14 @@ order by apellidos, nombres;
 
 
 drop procedure if exists usp_s_rephis_cita;  
-delimiter ;;
-create procedure usp_s_rephis_cita(fecI varchar(10), fecF varchar(10), idMed int,  idEsp int)
+delimiter @@
+create procedure usp_s_rephis_cita(fecI varchar(10), fecF varchar(10), idMed int,  idEsp int, idPac int)
 begin
 -- declare cuenta int; 
 -- TCM 
 set idMed = if(idMed=0, null, idMed);
 set idEsp = if(idEsp=0, null, idEsp); 
+set idPac = if(idPac=0, null, idPac); 
 
 select c.idCita, c.fecha, 
 	(h.nombre) as horario, 
@@ -175,11 +176,13 @@ from citas c
 	inner join especialidades e on m.idEspecialidad=e.idEspecialidad 
 where c.fecha between fecI and fecF  
 	and c.idMedico = IFNULL(idMed, c.idMedico) 
-	and m.idEspecialidad = IFNULL(idEsp,  m.idEspecialidad) ; 
+	and m.idEspecialidad = IFNULL(idEsp,  m.idEspecialidad) 
+    and c.idPaciente = IFNULL(idPac, c.idPaciente)  ; 
 
 -- c.fecha between '2022-02-24' and '2022-02-24'  
 -- set idMed = IFNULL(idMed, 99) ;
-end;;
+end@@
+
 
 
 /*
@@ -231,8 +234,7 @@ DELIMITER ;
 INSERT INTO pacientes (tipoDoc, numDoc, apePaterno, apeMaterno, nombres, telefono, celular, email,
 fecNacimiento, sexo, usuario) 
 values ('1','1011','Diaz','Jimenes','Juan','33034','989796','juan@gmail.com','1980/01/01','M','uno'),
- ('1','1012','Perez','Zapata','Pedro','33035','123456','pedro@gmail.com','1981/01/01','M','dos'),
- ('1','1013','Tello','Cruz','Esteban','35423','984563','esteban@gmail.com','1982/01/01','M','tres') ;
+ ('1','1012','Perez','Zapata','Pedro','33035','123456','pedro@gmail.com','1981/01/01','M','dos') ;
 DELIMITER ;
 
 -- delete from horarios;

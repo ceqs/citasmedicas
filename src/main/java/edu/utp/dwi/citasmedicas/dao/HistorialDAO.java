@@ -15,18 +15,19 @@ import java.util.List;
 
 public class HistorialDAO {
 
-    public List<Historial> getLista(String _fecI, String _fecF, int _idMed, int _idEsp) {
+    public List<Historial> getLista(int _idpaciente, String _fecI, String _fecF, int _idMed, int _idEsp) {
         List<Historial> lista = new ArrayList();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
             Connection cn = MySQLConexion.getConexion();
-            String sql = "{call usp_s_rephis_cita(?, ?, ?, ?)}";
+            String sql = "{call usp_s_rephis_cita(?, ?, ?, ?, ?)}";
             CallableStatement st = cn.prepareCall(sql);
             st.setString(1, _fecI);
             st.setString(2, _fecF);
             st.setInt(3, _idMed);
             st.setInt(4, _idEsp);
+            st.setInt(5, _idpaciente);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Historial d = new Historial();
