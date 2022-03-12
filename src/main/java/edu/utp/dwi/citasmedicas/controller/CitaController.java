@@ -12,6 +12,13 @@ import edu.utp.dwi.citasmedicas.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.AsyncContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -114,10 +121,58 @@ public class CitaController extends HttpServlet {
             d.setFecha(dateF);            
             daoCita.adicionar(d);
             
-            request.setAttribute("fecha", request.getParameter("txtfechaI"));
-            request.setAttribute("horario", request.getParameter("des_horario"));
-            request.setAttribute("medico", request.getParameter("des_medico"));
+            // Enviamos correo
+            final AsyncContext contextoAsincrono = request.startAsync();
+            contextoAsincrono.setTimeout(12000);
+ 
+            final String fecha = request.getParameter("txtfechaI");
+            final String horario = request.getParameter("des_horario");
+            final String medico = request.getParameter("des_medico");
+            contextoAsincrono.start(new Runnable() {
+                @Override
+                public void run() {
+                    sendEmail(fecha, horario, medico);
+                    contextoAsincrono.complete();
+                }
+            });
+            
+            request.setAttribute("fecha", fecha);
+            request.setAttribute("horario", horario);
+            request.setAttribute("medico", medico);
             request.getRequestDispatcher("/Registrado.jsp").forward(request, response);
+        }
+    }
+    
+    private void sendEmail(String fecha, String horario, String medico) {
+        String remitente = "utp.cgt.apps@gmail.com";
+
+        Properties props = System.getProperties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.user", remitente);
+        props.put("mail.smtp.clave", "XXX");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.port", "587");
+
+        try {
+            Session session = Session.getDefaultInstance(props);
+            MimeMessage message = new MimeMessage(session);
+
+
+            message.setFrom(new InternetAddress(remitente));
+            message.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress("utp.cgt.apps@gmail.com"));
+            message.setSubject("Su cita ha sido registrada");
+            message.setText("Para el " + fecha + " en el horario de : " + horario + ".\n" +
+                            "Con el medico: " + medico + "\n" +
+                            "\n" +
+                            "IMPORTANTE: No olvide llegar 30 minutos antes de su cita.\n");
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", remitente, "XXX");
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        }
+        catch (MessagingException me) {
+            me.printStackTrace();   //Si se produce un error
         }
     }
     

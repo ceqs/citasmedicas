@@ -65,6 +65,9 @@
                         if(usr.getNomRol().toUpperCase().contains("ADMI")) {
                     %>
                     <li>
+                        <a class="menu-options" href="Grafico.jsp">Dashboard</a>
+                    </li>
+                    <li>
                         <a href="#adminSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
                         <ul class="collapse list-unstyled" id="adminSubmenu" data-bs-target="#adminSubmenu">
                             <li>

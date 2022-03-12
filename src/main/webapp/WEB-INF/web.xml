@@ -11,6 +11,7 @@
     <servlet>
         <servlet-name>CitaController</servlet-name>
         <servlet-class>edu.utp.dwi.citasmedicas.controller.CitaController</servlet-class>
+        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
         <servlet-name>HistorialController</servlet-name>
@@ -23,6 +24,7 @@
     <servlet-mapping>
         <servlet-name>CitaController</servlet-name>
         <url-pattern>/CitaController</url-pattern>
+        <async-supported>true</async-supported>
     </servlet-mapping>
     <session-config>
         <session-timeout>
